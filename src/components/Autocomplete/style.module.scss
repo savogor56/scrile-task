@@ -1,0 +1,27 @@
+$bg-color: #F9F9F9;
+
+.inputWrap {
+  display: flex;
+  max-width: 343px;
+  height: 55px;
+  justify-content: start;
+  align-items: center;
+  -moz-border-radius: 6px 6px 0 0;
+  -webkit-border-radius: 6px 6px 0 0;
+  border-radius: 6px 6px 0 0;
+  border-bottom: 1px solid #262626;
+  background: $bg-color;
+  input {
+    height: 17px;
+    font-size: 16px;
+    line-height: 21px;
+    outline: none;
+    border: none;
+    font-family: Noto Sans, serif;
+    background: $bg-color;
+  }
+  svg {
+    margin-right: 19px;
+    margin-left: 19px;
+  }
+}
