@@ -1,5 +1,7 @@
 .loader {
   display: inline-block;
+  justify-self: center;
+  align-self: center;
   position: relative;
   width: 80px;
   height: 80px;
@@ -10,10 +12,10 @@
     width: 64px;
     height: 64px;
     margin: 8px;
-    border: 8px solid #000;
+    border: 3px solid #D6008F;
     border-radius: 50%;
     animation: loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: #000 transparent transparent transparent;
+    border-color: #D6008F transparent #FF6647 transparent;
   }
   & div:nth-child(1) {
     animation-delay: -0.45s;

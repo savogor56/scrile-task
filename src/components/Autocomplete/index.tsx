@@ -47,6 +47,5 @@ export const Autocomplete = () => {
             </div>
             { display && <UserList search={search} setSearch={setSearch} onClose={handleDisplay} /> }
         </div>
-
     )
 }

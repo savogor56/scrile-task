@@ -15,7 +15,7 @@ export const UserList: React.FC<Props> = ({ search, setSearch, onClose}) => {
     const dispatch = useAppDispatch()
     const {usersData, isFetching} = useAppSelector(state => state.users)
 
-    const handleClick = (name: string) => {
+    const handleSelect = (name: string) => {
         setSearch(name)
         onClose()
     }
@@ -28,10 +28,7 @@ export const UserList: React.FC<Props> = ({ search, setSearch, onClose}) => {
         <div className={s.root}>
             {!isFetching &&
                 usersData?.filter(({name}) => name.indexOf(search) > -1).map(user => (
-                    <div key={user.id} onClick={() => handleClick(user.name)} tabIndex={0}>
-                        <User user={user} />
-                    </div>
-                    
+                    <User key={user.id} user={user} onSelect={handleSelect} />
                 ))
             }
             {isFetching && <Loader />}
