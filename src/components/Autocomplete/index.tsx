@@ -1,18 +1,51 @@
 import {ReactComponent as SearchIcon} from "./assets/SearchIcon.svg"
 import {UserList} from "./components/UserList"
-import {useAppSelector} from "../../services/hooks"
 import s from "./style.module.scss"
+import { useEffect, useRef, useState } from "react"
 
 export const Autocomplete = () => {
-    const users = useAppSelector(state => state.users.usersData)
+    const [display, setDisplay] = useState(false)
+    const inputEl = useRef<HTMLInputElement | null>(null)
+    const autoRef = useRef<HTMLDivElement | null>(null)
+    const [search, setSearch] = useState('')
+
+    const handleDisplay = () => {
+        setDisplay(prevState => !prevState)
+    }
+
+    const handleClick = () => {
+        inputEl.current?.focus()
+        handleDisplay()
+    }
+
+    const handleClickOutside = (e: MouseEvent) => {
+        const {current: auto} = autoRef
+        if (auto && !auto.contains((e.target as Node))) {
+            setDisplay(false)
+        }      
+    }
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside)
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [])
 
     return (
-        <div>
-            <div className={s.inputWrap}>
+        <div ref={autoRef}>
+            <div className={s.inputWrap} onClick={handleClick}>
                 <SearchIcon />
-                <input type="text" placeholder="Search" />
+                <input 
+                    type="text"
+                    placeholder="Search" 
+                    ref={inputEl}
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                />
             </div>
-            {users && <UserList users={users} />}
+            { display && <UserList search={search} setSearch={setSearch} onClose={handleDisplay} /> }
         </div>
 
     )

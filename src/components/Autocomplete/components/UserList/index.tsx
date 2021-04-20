@@ -1,18 +1,40 @@
-import {UserData} from "../../../../services/types/users"
-import {User} from "../User";
+import { useEffect } from "react"
+import { useAppDispatch, useAppSelector } from "../../../../services/hooks"
+import { fetchUsers } from "../../../../store/users/operations"
+import { Loader } from "../../../Loader"
+import { User } from "../User"
+import s from "./style.module.scss"
 
 interface Props {
-    users: UserData[]
+    search: string
+    setSearch: React.Dispatch<React.SetStateAction<string>>
+    onClose: () => void
 }
 
-export const UserList: React.FC<Props> = ({users}) => {
+export const UserList: React.FC<Props> = ({ search, setSearch, onClose}) => {
+    const dispatch = useAppDispatch()
+    const {usersData, isFetching} = useAppSelector(state => state.users)
+
+    const handleClick = (name: string) => {
+        setSearch(name)
+        onClose()
+    }
+
+    useEffect(() => {
+        dispatch(fetchUsers())
+    }, [dispatch])
+
     return (
-        <div>
-            {
-                users.map(user => (
-                    <User user={user} />
+        <div className={s.root}>
+            {!isFetching &&
+                usersData?.filter(({name}) => name.indexOf(search) > -1).map(user => (
+                    <div key={user.id} onClick={() => handleClick(user.name)}>
+                        <User user={user} />
+                    </div>
+                    
                 ))
             }
+            {isFetching && <Loader />}
         </div>
     )
 }
