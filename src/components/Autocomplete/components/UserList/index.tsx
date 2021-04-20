@@ -28,7 +28,7 @@ export const UserList: React.FC<Props> = ({ search, setSearch, onClose}) => {
         <div className={s.root}>
             {!isFetching &&
                 usersData?.filter(({name}) => name.indexOf(search) > -1).map(user => (
-                    <div key={user.id} onClick={() => handleClick(user.name)}>
+                    <div key={user.id} onClick={() => handleClick(user.name)} tabIndex={0}>
                         <User user={user} />
                     </div>
                     
