@@ -11,5 +11,5 @@ test('renders App', () => {
     </Provider>
   );
 
-  expect(getByText(/App/i)).toBeInTheDocument();
+  expect(getByText(/Search/i)).toBeInTheDocument();
 });

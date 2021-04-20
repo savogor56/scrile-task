@@ -6,14 +6,14 @@ const state = {
     usersData: null as UserData[] | null
 }
 
-it('isFetching set true', () => {
+test('isFetching set true', () => {
     const action = setIsFetching(true)
     const newState = users(state, action)
     
     expect(newState.isFetching).toBe(true)
 })
 
-it('users should be added', () => {
+test('users should be added', () => {
     const usersData = [
         {
             "id": 1,
